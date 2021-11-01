@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     HIDDEN_DIM = 100
     ENCODE_DIM = 128
-    LABELS = 104
+    LABELS = 105
     EPOCHS = 15
     BATCH_SIZE = 64
     USE_GPU = True

@@ -2,7 +2,7 @@
 
 with pkgs;
 let pythpkgs = with python38Packages; [
-	pandas gensim scikitlearn pytorchWithoutCuda pycparser
+	pandas gensim scikitlearn pytorchWithoutCuda pycparser glob2
 ];
 in
 mkShell {

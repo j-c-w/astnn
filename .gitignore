@@ -1,0 +1,5 @@
+__pycache__
+data/ast.pkl
+data/dev
+data/test
+data/train

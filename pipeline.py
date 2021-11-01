@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import glob
 
 class Pipeline:
     def __init__(self,  ratio, root):
@@ -16,6 +17,32 @@ class Pipeline:
         path = self.root+output_file
         if os.path.exists(path) and option is 'existing':
             source = pd.read_pickle(path)
+            print(source.columns)
+            print(source.iloc[0, :])
+
+            from pycparser import c_parser
+            parser = c_parser.CParser()
+            
+            files = glob.glob("fft_data/*.c")
+            max_index = source.loc[source['id'].idxmax()].id
+            fft_label = source.loc[source['label'].idxmax].label + 1
+            print ("FFT label is " + (str(fft_label)))
+            i = len(source)
+            for file in files:
+                print ("Looking at file ", file)
+                max_index += 1
+                with open(file, "r") as f:
+                    contents = f.read()
+                parsed_code = parser.parse(contents)
+
+                source.loc[i] = [
+                        max_index,
+                        parsed_code,
+                        # New label
+                        fft_label
+                        ]
+                i += 1
+
         else:
             from pycparser import c_parser
             parser = c_parser.CParser()
